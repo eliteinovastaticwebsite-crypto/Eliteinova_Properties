@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronDown, ChevronLeft, ChevronRight, X } from 'lucide-react';
 import Header from '../components/Header';
 
 const HomePage = () => {
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
   const bannerImages = [
-    'images.unsplash.com/photo-1560518883-ce09059eeffa?w=1600&h=600&fit=cro',
-    'images.unsplash.com/photo-1570129477492-45c003edd2be?w=1600&h=600&fit=cro',
-    'images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=1600&h=600&fit=cro',
-    'images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1600&h=600&fit=cro',
-    'images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1600&h=600&fit=cro',
-    'images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600&h=600&fit=cro'
+    '-ce09059eeffa?w=1600&h=600&fit=crop',
+    '.com/photo-1570129477492-45c003edd2be?w=1600&h=600&fit=crop',
+    'com/photo-1582268611958-ebfd161ef9cf?w=1600&h=600&fit=crop',
+    'com/photo-1564013799919-ab600027ffc6?w=1600&h=600&fit=crop',
+    'com/photo-1512917774080-9991f1c4c750?w=1600&h=600&fit=crop',
+    'com/photo-1600596542815-ffad4c1539a9?w=1600&h=600&fit=crop'
   ];
 
   useEffect(() => {
@@ -44,12 +45,16 @@ const HomePage = () => {
     setCurrentSlide((prev) => (prev + 1) % bannerImages.length);
   };
 
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
+  };
+
   return (
     <div className="w-full min-h-screen bg-white">
-      <Header />
+      <Header onMenuToggle={toggleMobileMenu} />
 
-      {/* Navigation */}
-      <nav className="w-full" style={{ backgroundColor: '#00695C' }}>
+      {/* Navigation - Desktop */}
+      <nav className="w-full hidden md:block" style={{ backgroundColor: '#00695C' }}>
         <div className="flex items-center">
           <button className="px-4 py-2 text-white font-semibold text-sm hover:bg-teal-700">
             Home
@@ -150,10 +155,71 @@ const HomePage = () => {
         </div>
       </nav>
 
+      {/* Mobile Navigation Menu */}
+      {mobileMenuOpen && (
+        <div className="md:hidden fixed inset-0 bg-black bg-opacity-50 z-50" onClick={toggleMobileMenu}>
+          <div className="bg-white w-64 h-full overflow-y-auto" style={{ backgroundColor: '#00695C' }} onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center justify-between p-4 border-b border-teal-700">
+              <h2 className="text-white font-bold">Menu</h2>
+              <button onClick={toggleMobileMenu} className="text-white">
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+            
+            <div className="p-4">
+              <button className="w-full text-left text-white font-semibold py-3 border-b border-teal-700">Home</button>
+              
+              <details className="border-b border-teal-700">
+                <summary className="text-white font-semibold py-3 cursor-pointer">Customer Portal</summary>
+                <div className="pl-4 pb-2">
+                  {Object.entries(customerPortalMenu).map(([key, submenu]) => (
+                    <details key={key} className="mb-2">
+                      <summary className="text-white text-sm py-2 capitalize cursor-pointer">{key}</summary>
+                      <div className="pl-4">
+                        {submenu.map((item) => (
+                          <button key={item} className="block text-white text-xs py-1.5 w-full text-left">{item}</button>
+                        ))}
+                      </div>
+                    </details>
+                  ))}
+                </div>
+              </details>
+              
+              <details className="border-b border-teal-700">
+                <summary className="text-white font-semibold py-3 cursor-pointer">Post Your Property</summary>
+                <div className="pl-4 pb-2">
+                  {Object.entries(postPropertyMenu).map(([key, submenu]) => (
+                    <details key={key} className="mb-2">
+                      <summary className="text-white text-sm py-2 capitalize cursor-pointer">{key}</summary>
+                      <div className="pl-4">
+                        {submenu.map((item) => (
+                          <button key={item} className="block text-white text-xs py-1.5 w-full text-left">{item}</button>
+                        ))}
+                      </div>
+                    </details>
+                  ))}
+                </div>
+              </details>
+              
+              <button className="w-full text-left text-white font-semibold py-3 border-b border-teal-700">Find Your Loan</button>
+              
+              <details className="border-b border-teal-700">
+                <summary className="text-white font-semibold py-3 cursor-pointer">Services</summary>
+                <div className="pl-4 pb-2">
+                  {servicesMenu.map((item) => (
+                    <button key={item} className="block text-white text-sm py-2 w-full text-left">{item}</button>
+                  ))}
+                </div>
+              </details>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Main Content */}
-      <div className="w-full px-3 py-3">
+      <div className="w-full px-3 py-3 md:px-6 md:py-6">
         {/* Banner Slider */}
-        <div className="relative w-full mb-3 overflow-hidden" style={{ height: '600px', backgroundColor: '#b0b0b0' }}>
+        <div className="relative w-full mb-3 md:mb-6 overflow-hidden h-[300px] md:h-[600px]" style={{ backgroundColor: '#b0b0b0' }}>
           {bannerImages.map((img, index) => (
             <img
               key={index}
@@ -166,15 +232,15 @@ const HomePage = () => {
           ))}
           <button
             onClick={handlePrevSlide}
-            className="absolute left-2 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-200 p-1 rounded-full shadow z-20"
+            className="absolute left-1 md:left-2 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-200 p-1 rounded-full shadow z-20"
           >
-            <ChevronLeft className="w-5 h-5 text-black" />
+            <ChevronLeft className="w-4 h-4 md:w-5 md:h-5 text-black" />
           </button>
           <button
             onClick={handleNextSlide}
-            className="absolute right-2 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-200 p-1 rounded-full shadow z-20"
+            className="absolute right-1 md:right-2 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-200 p-1 rounded-full shadow z-20"
           >
-            <ChevronRight className="w-5 h-5 text-black" />
+            <ChevronRight className="w-4 h-4 md:w-5 md:h-5 text-black" />
           </button>
           <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1 z-20">
             {bannerImages.map((_, index) => (
@@ -190,7 +256,7 @@ const HomePage = () => {
         </div>
 
         {/* Action Buttons */}
-        <div className="grid grid-cols-4 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           <button className="text-white font-bold py-3 px-4 rounded-full hover:opacity-90 text-sm whitespace-nowrap" style={{ backgroundColor: '#00695C' }}>
             Customer Portal
           </button>
