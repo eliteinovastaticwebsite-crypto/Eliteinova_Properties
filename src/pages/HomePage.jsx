@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronDown, ChevronLeft, ChevronRight, X } from 'lucide-react';
+import { ChevronLeft, ChevronRight, X } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import banner1 from "../assets/banner1.jpg";
 import banner2 from "../assets/banner2.jpg";
@@ -8,7 +9,6 @@ import banner4 from "../assets/banner4.jpg";
 import banner5 from "../assets/banner5.jpg";
 
 const HomePage = () => {
-  const [activeDropdown, setActiveDropdown] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
@@ -68,109 +68,12 @@ const HomePage = () => {
         }
       `}</style>
       <div className="w-full min-h-screen bg-white">
-        <Header onMenuToggle={toggleMobileMenu} />
-
-        {/* Navigation - Desktop */}
-        <nav className="w-full hidden md:block" style={{ background: 'linear-gradient(90deg, #00695C, #26A69A)' }}>
-          <div className="flex items-center">
-            <button className="px-4 py-2 text-white font-semibold text-sm hover:bg-black hover:bg-opacity-20">
-              Home
-            </button>
-            
-            {/* Customer Portal Dropdown */}
-            <div 
-              className="relative"
-              onMouseEnter={() => setActiveDropdown('customer')}
-              onMouseLeave={() => setActiveDropdown(null)}
-            >
-              <button className="px-4 py-2 text-white font-semibold text-sm hover:bg-black hover:bg-opacity-20 flex items-center gap-1">
-                Customer Portal
-                <ChevronDown className="w-3 h-3" />
-              </button>
-              {activeDropdown === 'customer' && (
-                <div className="absolute top-full left-0 shadow-lg z-50 min-w-[140px]" style={{ backgroundColor: '#e5e5e5' }}>
-                  {Object.entries(customerPortalMenu).map(([key, submenu]) => (
-                    <div key={key} className="relative group">
-                      <button className="w-full px-3 py-1.5 text-left text-black hover:bg-gray-300 capitalize font-semibold text-xs">
-                        {key}
-                      </button>
-                      <div className="absolute left-full top-0 shadow-lg hidden group-hover:block min-w-[140px]" style={{ backgroundColor: '#9a9a9a' }}>
-                        {submenu.map((item) => (
-                          <button key={item} className="w-full px-3 py-1.5 text-left text-black hover:bg-gray-500 text-xs">
-                            {item}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* Post Your Property Dropdown */}
-            <div 
-              className="relative"
-              onMouseEnter={() => setActiveDropdown('post')}
-              onMouseLeave={() => setActiveDropdown(null)}
-            >
-              <button className="px-4 py-2 text-white font-semibold text-sm hover:bg-black hover:bg-opacity-20 flex items-center gap-1">
-                Post Your Property
-                <ChevronDown className="w-3 h-3" />
-              </button>
-              {activeDropdown === 'post' && (
-                <div className="absolute top-full left-0 shadow-lg z-50 min-w-[140px]" style={{ backgroundColor: '#e5e5e5' }}>
-                  {Object.entries(postPropertyMenu).map(([key, submenu]) => (
-                    <div key={key} className="relative group">
-                      <button className="w-full px-3 py-1.5 text-left text-black hover:bg-gray-300 capitalize font-semibold text-xs">
-                        {key}
-                      </button>
-                      <div className="absolute left-full top-0 shadow-lg hidden group-hover:block min-w-[160px]" style={{ backgroundColor: '#c0c0c0' }}>
-                        {submenu.map((item) => (
-                          <button key={item} className="w-full px-3 py-1.5 text-left text-black hover:bg-gray-400 text-xs">
-                            {item}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* Find Your Loan Dropdown */}
-            <div 
-              className="relative"
-              onMouseEnter={() => setActiveDropdown('loan')}
-              onMouseLeave={() => setActiveDropdown(null)}
-            >
-              <button className="px-4 py-2 text-white font-semibold text-sm hover:bg-black hover:bg-opacity-20 flex items-center gap-1">
-                Find Your Loan
-                <ChevronDown className="w-3 h-3" />
-              </button>
-            </div>
-
-            {/* Services Dropdown */}
-            <div 
-              className="relative"
-              onMouseEnter={() => setActiveDropdown('services')}
-              onMouseLeave={() => setActiveDropdown(null)}
-            >
-              <button className="px-4 py-2 text-white font-semibold text-sm hover:bg-black hover:bg-opacity-20 flex items-center gap-1">
-                Services
-                <ChevronDown className="w-3 h-3" />
-              </button>
-              {activeDropdown === 'services' && (
-                <div className="absolute top-full left-0 shadow-lg z-50 min-w-[140px]" style={{ backgroundColor: '#e5e5e5' }}>
-                  {servicesMenu.map((item) => (
-                    <button key={item} className="w-full px-3 py-1.5 text-left text-black hover:bg-gray-300 font-semibold text-xs">
-                      {item}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
-        </nav>
+        <Header 
+          onMenuToggle={toggleMobileMenu} 
+          customerPortalMenu={customerPortalMenu}
+          postPropertyMenu={postPropertyMenu}
+          servicesMenu={servicesMenu}
+        />
 
         {/* Mobile Navigation Menu */}
         {mobileMenuOpen && (
@@ -233,8 +136,8 @@ const HomePage = () => {
           </div>
         )}
 
-        {/* Main Content */}
-        <div className="w-full px-3 py-3 md:px-6 md:py-6">
+        {/* Main Content - Add padding for fixed header */}
+        <div className="w-full px-3 py-3 md:px-6 md:py-6 pt-[100px] md:pt-[110px]">
           {/* Banner Slider */}
           <div className="relative w-full mb-3 md:mb-6 overflow-hidden h-[300px] md:h-[500px]" style={{ backgroundColor: '#b0b0b0' }}>
             {bannerImages.map((banner, index) => (
