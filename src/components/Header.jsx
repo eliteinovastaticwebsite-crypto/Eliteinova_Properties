@@ -14,7 +14,7 @@ const Header = ({ onMenuToggle }) => {
             <Menu className="w-5 h-5 text-black" />
           </button>
           
-          <div className="w-8 h-8 md:w-10 md:h-10 rounded-full overflow-hidden flex items-center justify-center" style={{ backgroundColor: '#00695C' }}>
+          <div className="w-8 h-8 md:w-10 md:h-10 rounded-full overflow-hidden flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #00695C, #26A69A)' }}>
             <img 
               src="/logo.png" 
               alt="Eliteinova Properties Logo" 
@@ -22,7 +22,7 @@ const Header = ({ onMenuToggle }) => {
             />
           </div>
           <div>
-            <h1 className="text-base md:text-xl font-bold leading-none" style={{ fontFamily: 'Pacifico, cursive', color: '#00695C' }}>
+            <h1 className="text-base md:text-xl font-bold leading-none" style={{ fontFamily: 'Pacifico, cursive', background: 'linear-gradient(135deg, #00695C, #26A69A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
               Eliteinova Properties
             </h1>
             <p className="text-[10px] md:text-xs text-black">No Brokerage</p>
