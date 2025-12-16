@@ -285,25 +285,39 @@ const Header = ({ onPostPropertyClick }) => {
               </details>
               
               <details className="border-b border-white border-opacity-20">
-                <summary className="text-white font-semibold py-3 cursor-pointer list-none">
-                  <span className="flex items-center justify-between">
-                    Post Your Property
-                    <ChevronDown className="w-4 h-4" />
-                  </span>
-                </summary>
-                <div className="pl-4 pb-2">
-                  {postPropertyMenu.map((item) => (
-                    <button 
-                      key={item} 
-                      onClick={() => handlePostSubmenuClick(item)}
-                      className="block text-white text-sm py-2 w-full text-left hover:bg-white hover:bg-opacity-10"
-                    >
-                      {item}
-                    </button>
-                  ))}
-                </div>
-              </details>
-              
+  <summary className="text-white font-semibold py-3 cursor-pointer list-none">
+    <div className="flex items-center justify-between">
+      {/* TEXT → NAVIGATES */}
+      <button
+        onClick={(e) => {
+          e.preventDefault();   // prevents summary toggle
+          navigate("/post-property");
+          toggleMobileMenu();
+        }}
+        className="text-left flex-1"
+      >
+        Post Your Property
+      </button>
+
+      {/* ICON → TOGGLES SUBMENU */}
+      <ChevronDown className="w-4 h-4 pointer-events-none" />
+    </div>
+  </summary>
+
+  {/* SUBMENUS */}
+  <div className="pl-4 pb-2">
+    {postPropertyMenu.map((item) => (
+      <button
+        key={item}
+        onClick={() => handlePostSubmenuClick(item)}
+        className="block text-white text-sm py-2 w-full text-left hover:bg-white hover:bg-opacity-10"
+      >
+        {item}
+      </button>
+    ))}
+  </div>
+</details>
+
               <details className="border-b border-white border-opacity-20">
                 <summary className="text-white font-semibold py-3 cursor-pointer list-none">
                   <span className="flex items-center justify-between">
