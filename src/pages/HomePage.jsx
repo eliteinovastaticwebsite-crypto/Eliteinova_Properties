@@ -45,7 +45,7 @@ const HomePage = () => {
 
       <div className="w-full bg-white">
         {/* Banner Slider */}
-        <div className="relative w-full mt-2 md:mt-3 overflow-hidden h-[300px] md:h-[500px] bg-gray-300">
+        <div className="relative w-full mt-2 md:mt-3 overflow-hidden h-[300px] md:h-[400px] bg-gray-300">
           {bannerImages.map((banner, index) => (
             <div
               key={index}

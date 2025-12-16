@@ -3,6 +3,7 @@ import { User, Menu, ChevronDown, X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 
+
 const Header = ({ onPostPropertyClick }) => {
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -41,7 +42,12 @@ const Header = ({ onPostPropertyClick }) => {
   const handlePostSubmenuClick = (item) => {
     setActiveDropdown(null);
     setMobileMenuOpen(false);
-    onPostPropertyClick?.(item);
+    
+    console.log("Submenu clicked:", item);
+    
+    if (onPostPropertyClick) {
+      onPostPropertyClick(item);
+    }
   };
 
   const toggleMobileMenu = () => {
@@ -64,28 +70,28 @@ const Header = ({ onPostPropertyClick }) => {
               </button>
 
               <div
-                onClick={() => navigate("/")}
-                className="cursor-pointer w-9 h-9 rounded-full overflow-hidden flex items-center justify-center"
-                style={{
-                  background: "linear-gradient(135deg, #00695C, #26A69A)",
-                }}
-              >
-                <img src={logo} alt="Eliteinova Logo" className="w-full h-full" />
-              </div>
+             onClick={() => navigate("/")}
+             className="cursor-pointer w-9 h-9 rounded-full overflow-hidden flex items-center justify-center bg-white"
+             >
+             <img
+             src={logo}
+             alt="Eliteinova Properties Logo"
+             className="w-full h-full object-contain"
+             />
+             </div>
+
 
               <div onClick={() => navigate("/")} className="cursor-pointer">
                 <h1
                   className="text-base md:text-lg font-bold leading-none"
                   style={{
                     fontFamily: "Pacifico, cursive",
-                    background: "linear-gradient(135deg, #00695C, #26A69A)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
+                    color: "#00695C",
                   }}
                 >
                   Eliteinova Properties
                 </h1>
-                <p className="text-[10px] text-black">No Brokerage</p>
+                <p className="text-[10px] text-black font-medium">No Brokerage</p>
               </div>
             </div>
 
@@ -279,22 +285,10 @@ const Header = ({ onPostPropertyClick }) => {
               </details>
               
               <details className="border-b border-white border-opacity-20">
-                <summary 
-                  className="text-white font-semibold py-3 cursor-pointer list-none"
-                  onClick={(e) => {
-                    const target = e.target;
-                    if (target.closest('summary') && !target.closest('.chevron-icon')) {
-                      e.preventDefault();
-                      navigate("/post-property");
-                      toggleMobileMenu();
-                    }
-                  }}
-                >
+                <summary className="text-white font-semibold py-3 cursor-pointer list-none">
                   <span className="flex items-center justify-between">
                     Post Your Property
-                    <span className="chevron-icon" onClick={(e) => e.stopPropagation()}>
-                      <ChevronDown className="w-4 h-4" />
-                    </span>
+                    <ChevronDown className="w-4 h-4" />
                   </span>
                 </summary>
                 <div className="pl-4 pb-2">

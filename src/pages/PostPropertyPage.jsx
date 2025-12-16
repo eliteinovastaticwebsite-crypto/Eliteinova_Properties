@@ -38,15 +38,22 @@ const PostPropertyPage = ({ onPostPropertyClick }) => {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {propertyTypes.map((type) => (
             <button
-              key={type}
-              onClick={() => onPostPropertyClick?.(type)}
-              className="h-14 rounded-xl text-white text-lg font-semibold shadow-md hover:scale-105 transition-transform"
-              style={{
-                background: "linear-gradient(135deg, #00695C, #26A69A)",
-              }}
-            >
-              {type}
-            </button>
+  key={type}
+  onClick={() => {
+    if (type === "Builder") {
+      onPostPropertyClick?.("Builder");
+    } else {
+      onPostPropertyClick?.(type);
+    }
+  }}
+  className="h-14 rounded-xl text-white text-lg font-semibold shadow-md hover:scale-105 transition-transform"
+  style={{
+    background: "linear-gradient(135deg, #00695C, #26A69A)",
+  }}
+>
+  {type}
+</button>
+
           ))}
         </div>
 

@@ -13,9 +13,9 @@ import PostPropertyPage from "./pages/PostPropertyPage";
 // Import all form modals - Comment out if they're causing issues
 import OwnerFormModal from "./components/OwnerFormModal";
 import AgentFormModal from "./components/AgentFormModal";
-// import BuilderFormModal from "./components/BuilderFormModal";
-// import HostelFormModal from "./components/HostelFormModal";
-// import PropertyManagementFormModal from "./components/PropertyManagementFormModal";
+import BuilderFormModal from "./components/BuilderFormModal";
+import HostelFormModal from "./components/HostelFormModal";
+import PropertyManagementFormModal from "./components/PropertyManagementFormModal";
 
 function AppLayout() {
   const [openOwnerForm, setOpenOwnerForm] = useState(false);
@@ -36,13 +36,10 @@ function AppLayout() {
       setOpenAgentForm(true);
     } else if (type === "Builder") {
       setOpenBuilderForm(true);
-      alert("Builder form coming soon!"); // Temporary
     } else if (type === "Hostel") {
       setOpenHostelForm(true);
-      alert("Hostel form coming soon!"); // Temporary
     } else if (type === "Property Management") {
       setOpenPropertyManagementForm(true);
-      alert("Property Management form coming soon!"); // Temporary
     } else {
       navigate("/post-property");
     }
@@ -72,26 +69,26 @@ function AppLayout() {
         />
       )}
 
-      {/*{openBuilderForm && (
+      {openBuilderForm && (
         <BuilderFormModal
           isOpen={openBuilderForm}
           onClose={() => setOpenBuilderForm(false)}
         />
       )}
 
-      {openHostelForm && (
+     {openHostelForm && (
         <HostelFormModal
           isOpen={openHostelForm}
           onClose={() => setOpenHostelForm(false)}
         />
       )}
 
-      {openPropertyManagementForm && (
+     {openPropertyManagementForm && (
         <PropertyManagementFormModal
           isOpen={openPropertyManagementForm}
           onClose={() => setOpenPropertyManagementForm(false)}
         />
-      )} */}
+      )}
 
       {/* MAIN CONTENT — compensate fixed header height */}
       <main className="pt-[92px]">
