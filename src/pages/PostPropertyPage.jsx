@@ -1,15 +1,12 @@
-import React, { useState } from "react";
-import Header from "../components/Header";
-import OwnerFormModal from "../components/OwnerFormModal";
+import React from "react";
+import postpropertyimage from "../assets/postpropertyimage.jpg";
 
 const HEADER_HEIGHT = "96px"; // must match Header total height
 
-const PostPropertyPage = () => {
-  const [openOwnerForm, setOpenOwnerForm] = useState(false);
-
+const PostPropertyPage = ({ onPostPropertyClick }) => {
   const propertyTypes = [
     "Owner",
-    "Dealer",
+    "Agent",
     "Builder",
     "Hostel",
     "Property Management",
@@ -17,19 +14,16 @@ const PostPropertyPage = () => {
 
   return (
     <div className="w-full min-h-screen bg-gray-50">
-      <Header />
-
       {/* ✅ HERO — NO GAP */}
       <section
-        className="w-full px-4 bg-center bg-cover"
+         className="w-full h-[250px] px-4 bg-center bg-cover bg-no-repeat"
         style={{
           paddingTop: `calc(${HEADER_HEIGHT} + 16px)`, // ✅ fills background
           paddingBottom: "3rem",
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1600&q=80')",
+          backgroundImage: `url(${postpropertyimage})`,
         }}
       >
-        <div className="max-w-6xl mx-auto bg-black/50 rounded-lg py-6 px-4">
+        <div className="max-w-6xl mx-auto rounded-lg py-6 px-4">
           <h1 className="text-3xl md:text-4xl font-bold text-white text-center">
             Post Your Property
           </h1>
@@ -45,7 +39,7 @@ const PostPropertyPage = () => {
           {propertyTypes.map((type) => (
             <button
               key={type}
-              onClick={() => type === "Owner" && setOpenOwnerForm(true)}
+              onClick={() => onPostPropertyClick?.(type)}
               className="h-14 rounded-xl text-white text-lg font-semibold shadow-md hover:scale-105 transition-transform"
               style={{
                 background: "linear-gradient(135deg, #00695C, #26A69A)",
@@ -85,11 +79,6 @@ const PostPropertyPage = () => {
           </div>
         </div>
       </section>
-
-      <OwnerFormModal
-        isOpen={openOwnerForm}
-        onClose={() => setOpenOwnerForm(false)}
-      />
     </div>
   );
 };
