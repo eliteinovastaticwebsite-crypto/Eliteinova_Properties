@@ -31,7 +31,8 @@ export default function BuilderFormModal({ isOpen, onClose }) {
 
   return (
     <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-0">
-      <div className="bg-white w-full h-full sm:w-full sm:max-w-md sm:h-auto sm:rounded-xl shadow-lg flex flex-col sm:max-h-[90vh]">
+      <div className="bg-white w-full max-w-md rounded-2xl shadow-lg flex flex-col max-h-[95vh] sm:max-h-[90vh] overflow-hidden">
+
         
         {/* Header with Back Button */}
         <div className="flex items-center px-4 py-4 border-b shrink-0 bg-gray-50">

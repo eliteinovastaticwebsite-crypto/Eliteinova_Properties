@@ -18,7 +18,8 @@ export default function HostelFormModal({ isOpen = true, onClose }) {
 
   return (
     <div className="fixed inset-0 z-50 bg-black/40 flex justify-center">
-      <div className="bg-white w-full max-w-md min-h-screen overflow-y-auto">
+      <div className="bg-white w-full max-w-md rounded-2xl shadow-lg flex flex-col max-h-[95vh] sm:max-h-[90vh] overflow-hidden">
+
         {/* Header */}
         <div className="flex items-center gap-3 px-4 py-3 border-b">
           <button onClick={onClose} className="text-xl">←</button>

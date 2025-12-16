@@ -232,7 +232,8 @@ export default function OwnerFormModal({ isOpen, onClose }) {
         </div>
 
         {/* FOOTER (ALWAYS VISIBLE) */}
-        <div className="flex gap-2 sm:gap-3 p-3 sm:p-4 border-t bg-white shrink-0">
+        <div className="flex gap-2 sm:gap-3 p-3 sm:p-4 border-t bg-white shrink-0 rounded-b-xl">
+
           {step > 0 && (
             <button className="btn-outline text-sm sm:text-base px-3 sm:px-4 py-2" onClick={() => setStep(step - 1)}>
               Back
