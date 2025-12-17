@@ -27,12 +27,12 @@ const RentPage = () => {
     <div className="w-full min-h-screen bg-gray-50">
       {/* Banner Section */}
       <section
-        className="w-full py-10 md:py-16 px-4 bg-cover bg-center relative"
-        style={{
-          backgroundImage: `url(${rentBanner})`,
-        }}
+      className="w-full py-10 md:py-16 px-4 bg-cover bg-center relative"
+      style={{
+      backgroundImage: `url(${rentBanner})`,
+      }}
       >
-        <div className="absolute inset-0 bg-black/40"></div>
+     <div className="absolute inset-0 bg-black/40"></div>
         
         <div className="max-w-6xl mx-auto relative z-10">
           <h1 className="text-2xl md:text-4xl font-bold text-white text-center mb-3 md:mb-4 drop-shadow-lg">
