@@ -27,22 +27,25 @@ const BuyPage = () => {
     <div className="w-full min-h-screen bg-gray-50">
       {/* Banner Section */}
       <section
-        className="w-full py-10 md:py-16 px-4 bg-cover bg-center relative"
-        style={{
-          backgroundImage: `url(${buyBanner})`,
-        }}
-      >
-        <div className="absolute inset-0 bg-black/40"></div>
-        
-        <div className="max-w-6xl mx-auto relative z-10">
-          <h1 className="text-2xl md:text-4xl font-bold text-white text-center mb-3 md:mb-4 drop-shadow-lg">
-            Buy Your Dream Property
-          </h1>
-          <p className="text-white text-center text-sm md:text-lg drop-shadow-md">
-            Explore properties for sale with zero brokerage
-          </p>
-        </div>
-      </section>
+  className="w-full min-h-[260px] md:min-h-[340px] px-4 bg-cover bg-center relative flex items-center"
+  style={{
+    backgroundImage: `url(${buyBanner})`,
+  }}
+>
+  {/* Overlay */}
+  <div className="absolute inset-0 bg-black/40"></div>
+
+  {/* Content */}
+  <div className="max-w-6xl mx-auto relative z-10 text-center">
+    <h1 className="text-2xl md:text-4xl font-bold text-white mb-3 drop-shadow-lg">
+      Buy Your Dream Property
+    </h1>
+    <p className="text-white text-sm md:text-lg drop-shadow-md">
+      Explore properties for sale with zero brokerage
+    </p>
+  </div>
+</section>
+
 
       {/* Filter Section */}
       <section className="max-w-6xl mx-auto px-4 py-4 md:py-6">
