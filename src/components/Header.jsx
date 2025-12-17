@@ -3,7 +3,6 @@ import { User, Menu, ChevronDown, X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 
-
 const Header = ({ onPostPropertyClick }) => {
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -50,6 +49,19 @@ const Header = ({ onPostPropertyClick }) => {
     }
   };
 
+  const handleCustomerPortalClick = (type) => {
+    setActiveDropdown(null);
+    setMobileMenuOpen(false);
+    
+    if (type === "rent") {
+      navigate("/rent");
+    } else if (type === "buy") {
+      navigate("/buy");
+    } else if (type === "lease") {
+      navigate("/lease");
+    }
+  };
+
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
@@ -70,16 +82,15 @@ const Header = ({ onPostPropertyClick }) => {
               </button>
 
               <div
-             onClick={() => navigate("/")}
-             className="cursor-pointer w-9 h-9 rounded-full overflow-hidden flex items-center justify-center bg-white"
-             >
-             <img
-             src={logo}
-             alt="Eliteinova Properties Logo"
-             className="w-full h-full object-contain"
-             />
-             </div>
-
+                onClick={() => navigate("/")}
+                className="cursor-pointer w-9 h-9 rounded-full overflow-hidden flex items-center justify-center bg-white"
+              >
+                <img
+                  src={logo}
+                  alt="Eliteinova Properties Logo"
+                  className="w-full h-full object-contain"
+                />
+              </div>
 
               <div onClick={() => navigate("/")} className="cursor-pointer">
                 <h1
@@ -118,7 +129,10 @@ const Header = ({ onPostPropertyClick }) => {
               onMouseEnter={() => setActiveDropdown("customer")}
               onMouseLeave={() => setActiveDropdown(null)}
             >
-              <button className="px-4 h-12 text-white font-semibold text-sm hover:bg-black/20 flex items-center gap-1">
+              <button 
+                onClick={() => navigate("/customer-portal")}
+                className="px-4 h-12 text-white font-semibold text-sm hover:bg-black/20 flex items-center gap-1"
+              >
                 Customer Portal <ChevronDown className="w-3 h-3" />
               </button>
 
@@ -126,7 +140,10 @@ const Header = ({ onPostPropertyClick }) => {
                 <div className="absolute top-full left-0 bg-[#e5e5e5] shadow-lg z-50 min-w-[140px]">
                   {Object.entries(customerPortalMenu).map(([key, submenu]) => (
                     <div key={key} className="relative group">
-                      <button className="w-full px-3 py-1.5 text-left capitalize text-xs font-semibold text-black hover:bg-gray-300">
+                      <button 
+                        onClick={() => handleCustomerPortalClick(key)}
+                        className="w-full px-3 py-1.5 text-left capitalize text-xs font-semibold text-black hover:bg-gray-300"
+                      >
                         {key}
                       </button>
                       <div className="absolute left-full top-0 hidden group-hover:block bg-[#9a9a9a] shadow-lg min-w-[140px]">
@@ -255,19 +272,36 @@ const Header = ({ onPostPropertyClick }) => {
               
               <details className="border-b border-white border-opacity-20">
                 <summary className="text-white font-semibold py-3 cursor-pointer list-none">
-                  <span className="flex items-center justify-between">
-                    Customer Portal
-                    <ChevronDown className="w-4 h-4" />
-                  </span>
+                  <div className="flex items-center justify-between">
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        navigate("/customer-portal");
+                        toggleMobileMenu();
+                      }}
+                      className="text-left flex-1"
+                    >
+                      Customer Portal
+                    </button>
+                    <ChevronDown className="w-4 h-4 pointer-events-none" />
+                  </div>
                 </summary>
                 <div className="pl-4 pb-2">
                   {Object.entries(customerPortalMenu).map(([key, submenu]) => (
                     <details key={key} className="mb-2">
                       <summary className="text-white text-sm py-2 capitalize cursor-pointer list-none">
-                        <span className="flex items-center justify-between">
-                          {key}
-                          <ChevronDown className="w-3 h-3" />
-                        </span>
+                        <div className="flex items-center justify-between">
+                          <button
+                            onClick={(e) => {
+                              e.preventDefault();
+                              handleCustomerPortalClick(key);
+                            }}
+                            className="text-left flex-1"
+                          >
+                            {key}
+                          </button>
+                          <ChevronDown className="w-3 h-3 pointer-events-none" />
+                        </div>
                       </summary>
                       <div className="pl-4">
                         {submenu.map((item) => (
@@ -285,38 +319,33 @@ const Header = ({ onPostPropertyClick }) => {
               </details>
               
               <details className="border-b border-white border-opacity-20">
-  <summary className="text-white font-semibold py-3 cursor-pointer list-none">
-    <div className="flex items-center justify-between">
-      {/* TEXT → NAVIGATES */}
-      <button
-        onClick={(e) => {
-          e.preventDefault();   // prevents summary toggle
-          navigate("/post-property");
-          toggleMobileMenu();
-        }}
-        className="text-left flex-1"
-      >
-        Post Your Property
-      </button>
-
-      {/* ICON → TOGGLES SUBMENU */}
-      <ChevronDown className="w-4 h-4 pointer-events-none" />
-    </div>
-  </summary>
-
-  {/* SUBMENUS */}
-  <div className="pl-4 pb-2">
-    {postPropertyMenu.map((item) => (
-      <button
-        key={item}
-        onClick={() => handlePostSubmenuClick(item)}
-        className="block text-white text-sm py-2 w-full text-left hover:bg-white hover:bg-opacity-10"
-      >
-        {item}
-      </button>
-    ))}
-  </div>
-</details>
+                <summary className="text-white font-semibold py-3 cursor-pointer list-none">
+                  <div className="flex items-center justify-between">
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        navigate("/post-property");
+                        toggleMobileMenu();
+                      }}
+                      className="text-left flex-1"
+                    >
+                      Post Your Property
+                    </button>
+                    <ChevronDown className="w-4 h-4 pointer-events-none" />
+                  </div>
+                </summary>
+                <div className="pl-4 pb-2">
+                  {postPropertyMenu.map((item) => (
+                    <button
+                      key={item}
+                      onClick={() => handlePostSubmenuClick(item)}
+                      className="block text-white text-sm py-2 w-full text-left hover:bg-white hover:bg-opacity-10"
+                    >
+                      {item}
+                    </button>
+                  ))}
+                </div>
+              </details>
 
               <details className="border-b border-white border-opacity-20">
                 <summary className="text-white font-semibold py-3 cursor-pointer list-none">

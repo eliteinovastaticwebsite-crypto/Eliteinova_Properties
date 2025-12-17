@@ -3,14 +3,17 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  useNavigate,
 } from "react-router-dom";
 
 import Header from "./components/Header";
 import HomePage from "./pages/HomePage";
 import PostPropertyPage from "./pages/PostPropertyPage";
+import CustomerPortalPage from "./pages/CustomerPortalPage";
+import RentPage from "./pages/RentPage";
+import BuyPage from "./pages/BuyPage";
+import LeasePage from "./pages/LeasePage";
 
-// Import all form modals - Comment out if they're causing issues
+// Import all form modals
 import OwnerFormModal from "./components/OwnerFormModal";
 import AgentFormModal from "./components/AgentFormModal";
 import BuilderFormModal from "./components/BuilderFormModal";
@@ -23,12 +26,10 @@ function AppLayout() {
   const [openBuilderForm, setOpenBuilderForm] = useState(false);
   const [openHostelForm, setOpenHostelForm] = useState(false);
   const [openPropertyManagementForm, setOpenPropertyManagementForm] = useState(false);
-  
-  const navigate = useNavigate();
 
-  // ✅ Central control from Header
+  // Central control from Header
   const handlePostPropertyClick = (type) => {
-    console.log("Form clicked:", type); // Debug log
+    console.log("Form clicked:", type);
     
     if (type === "Owner") {
       setOpenOwnerForm(true);
@@ -40,8 +41,6 @@ function AppLayout() {
       setOpenHostelForm(true);
     } else if (type === "Property Management") {
       setOpenPropertyManagementForm(true);
-    } else {
-      navigate("/post-property");
     }
   };
 
@@ -53,7 +52,7 @@ function AppLayout() {
         onPostPropertyClick={handlePostPropertyClick}
       />
 
-      {/* OWNER FORM MODAL - Only this one is active */}
+      {/* FORM MODALS */}
       {openOwnerForm && (
         <OwnerFormModal
           isOpen={openOwnerForm}
@@ -61,8 +60,7 @@ function AppLayout() {
         />
       )}
 
-      {/* OTHER MODALS - Uncomment when ready */}
-       {openAgentForm && (
+      {openAgentForm && (
         <AgentFormModal
           isOpen={openAgentForm}
           onClose={() => setOpenAgentForm(false)}
@@ -76,14 +74,14 @@ function AppLayout() {
         />
       )}
 
-     {openHostelForm && (
+      {openHostelForm && (
         <HostelFormModal
           isOpen={openHostelForm}
           onClose={() => setOpenHostelForm(false)}
         />
       )}
 
-     {openPropertyManagementForm && (
+      {openPropertyManagementForm && (
         <PropertyManagementFormModal
           isOpen={openPropertyManagementForm}
           onClose={() => setOpenPropertyManagementForm(false)}
@@ -91,9 +89,13 @@ function AppLayout() {
       )}
 
       {/* MAIN CONTENT — compensate fixed header height */}
-      <main className="pt-[92px]">
+      <main className="pt-24">
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/customer-portal" element={<CustomerPortalPage />} />
+          <Route path="/rent" element={<RentPage />} />
+          <Route path="/buy" element={<BuyPage />} />
+          <Route path="/lease" element={<LeasePage />} />
           <Route 
             path="/post-property" 
             element={<PostPropertyPage onPostPropertyClick={handlePostPropertyClick} />} 
