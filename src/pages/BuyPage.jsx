@@ -156,7 +156,7 @@ const BuyPage = () => {
             Properties Coming Soon
           </h2>
           <p className="text-gray-600 text-sm md:text-base">
-            We're currently adding properties for sale to our database. Check back soon!
+            We're currently adding properties for sale to our database.Check back soon!
           </p>
         </div>
       </section>
