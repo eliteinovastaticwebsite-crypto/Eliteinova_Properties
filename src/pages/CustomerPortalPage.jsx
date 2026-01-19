@@ -31,7 +31,7 @@ const CustomerPortalPage = () => {
       <section className="max-w-4xl mx-auto px-4 py-8 md:py-16">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6">
           <button
-            onClick={() => navigate("/rent")}
+            onClick={() => navigate("/individual")}
             className="h-16 md:h-20 rounded-xl text-white text-lg md:text-xl font-bold shadow-md hover:shadow-lg hover:scale-105 transition-all"
             style={{
               background: "linear-gradient(135deg, #00695C, #26A69A)",

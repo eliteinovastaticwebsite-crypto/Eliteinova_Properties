@@ -9,7 +9,7 @@ import Header from "./components/Header";
 import HomePage from "./pages/HomePage";
 import PostPropertyPage from "./pages/PostPropertyPage";
 import CustomerPortalPage from "./pages/CustomerPortalPage";
-import RentPage from "./pages/RentPage";
+import IndividualPage from "./pages/IndividualPage";
 import BuyPage from "./pages/BuyPage";
 import LeasePage from "./pages/LeasePage";
 
@@ -93,7 +93,7 @@ function AppLayout() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/customer-portal" element={<CustomerPortalPage />} />
-          <Route path="/rent" element={<RentPage />} />
+          <Route path="/individual" element={<IndividualPage />} />
           <Route path="/buy" element={<BuyPage />} />
           <Route path="/lease" element={<LeasePage />} />
           <Route 

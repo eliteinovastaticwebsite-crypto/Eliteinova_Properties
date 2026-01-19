@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { User, Menu, ChevronDown, X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import logo from "../assets/logo.png";
+import logo from "../assets/logo1.png";
 
 const Header = ({ onPostPropertyClick }) => {
   const [activeDropdown, setActiveDropdown] = useState(null);
@@ -9,11 +9,11 @@ const Header = ({ onPostPropertyClick }) => {
   const navigate = useNavigate();
 
   const customerPortalMenu = {
-    Individual: ["Rent", "Buy", "Lease"],
-    Apartment: ["Rent", "Buy", "Lease"],
-    Commercial: ["Rent", "Buy", "Lease"],
-    LandAndPlots: ["Rent", "Buy", "Lease"],
-    Hostel: ["Rent", "Buy", "Lease"],
+    Individual: ["Rent", "Buy", "Lease", "Sell"],
+    Apartment: ["Rent", "Buy", "Lease", "Sell"],
+    Commercial: ["Rent", "Buy", "Lease", "Sell"],
+    LandAndPlots: ["Rent", "Buy", "Lease", "Sell"],
+    Hostel: ["Rent", "Buy", "Lease", "Sell"],
   };
 
   const postPropertyMenu = [
@@ -55,12 +55,24 @@ const Header = ({ onPostPropertyClick }) => {
     setActiveDropdown(null);
     setMobileMenuOpen(false);
     
-    if (type === "rent") {
+    const typeKey = type.toLowerCase();
+    
+    if (typeKey === "individual") {
+      navigate("/individual");
+    } else if (typeKey === "rent") {
       navigate("/rent");
-    } else if (type === "buy") {
+    } else if (typeKey === "buy") {
       navigate("/buy");
-    } else if (type === "lease") {
+    } else if (typeKey === "lease") {
       navigate("/lease");
+    } else if (typeKey === "apartment") {
+      navigate("/apartment");
+    } else if (typeKey === "commercial") {
+      navigate("/commercial");
+    } else if (typeKey === "landandplots") {
+      navigate("/land-plots");
+    } else if (typeKey === "hostel") {
+      navigate("/hostel");
     }
   };
 
@@ -71,21 +83,22 @@ const Header = ({ onPostPropertyClick }) => {
   return (
     <>
       <header className="fixed top-0 left-0 right-0 z-50 shadow-md">
-        {/* ================= TOP BAR (48px) ================= */}
-        <div className="h-12 w-full bg-[#c5c5c5] px-3 md:px-4 flex items-center">
+        {/* ================= TOP BAR ================= */}
+        {/* Increased height for better visibility */}
+        <div className="h-16 md:h-20 w-full bg-[#c5c5c5] px-4 md:px-6 flex items-center">
           <div className="flex items-center justify-between w-full">
             {/* LEFT */}
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3 md:gap-4">
               <button
                 onClick={toggleMobileMenu}
-                className="md:hidden p-1 hover:bg-gray-300 rounded"
+                className="md:hidden p-1.5 hover:bg-gray-300 rounded"
               >
-                <Menu className="w-5 h-5 text-black" />
+                <Menu className="w-6 h-6 text-black" />
               </button>
 
               <div
                 onClick={() => navigate("/")}
-                className="cursor-pointer w-9 h-9 rounded-full overflow-hidden flex items-center justify-center bg-white"
+                className="cursor-pointer w-11 h-11 md:w-14 md:h-14 rounded-full overflow-hidden flex items-center justify-center bg-white"
               >
                 <img
                   src={logo}
@@ -95,8 +108,9 @@ const Header = ({ onPostPropertyClick }) => {
               </div>
 
               <div onClick={() => navigate("/")} className="cursor-pointer">
+                {/* Significantly increased heading size */}
                 <h1
-                  className="text-base md:text-lg font-bold leading-none"
+                  className="text-xl md:text-2xl lg:text-3xl font-bold leading-tight"
                   style={{
                     fontFamily: "Pacifico, cursive",
                     color: "#00695C",
@@ -104,23 +118,33 @@ const Header = ({ onPostPropertyClick }) => {
                 >
                   Eliteinova Properties
                 </h1>
-                <p className="text-[10px] text-black font-medium">No Brokerage</p>
+                {/* Increased subheading size proportionally */}
+                <p 
+                  className="text-sm md:text-base lg:text-lg font-normal leading-tight mt-0.5"
+                  style={{
+                    fontFamily: "Pacifico, cursive",
+                    color: "#00695C",
+                  }}
+                >
+                  No Brokerage
+                </p>
               </div>
             </div>
 
-            {/* RIGHT */}
-            <button className="w-9 h-9 bg-white border border-black rounded-full flex items-center justify-center hover:bg-gray-50">
-              <User className="w-5 h-5 text-black" />
+            {/* RIGHT - Increased user icon size */}
+            <button className="w-10 h-10 md:w-11 md:h-11 bg-white border border-black rounded-full flex items-center justify-center hover:bg-gray-50">
+              <User className="w-6 h-6 md:w-7 md:h-7 text-black" />
             </button>
           </div>
         </div>
 
-        {/* ================= DESKTOP NAV (48px) ================= */}
-        <nav className="hidden md:flex h-12 items-center bg-gradient-to-r from-[#00695C] to-[#26A69A]">
+        {/* ================= DESKTOP NAV ================= */}
+        {/* Increased navigation bar height slightly */}
+        <nav className="hidden md:flex h-14 items-center bg-gradient-to-r from-[#00695C] to-[#26A69A]">
           <div className="flex items-center">
             <button
               onClick={() => navigate("/")}
-              className="px-4 h-12 text-white font-semibold text-sm hover:bg-black/20"
+              className="px-5 h-14 text-white font-semibold text-base hover:bg-black/20"
             >
               Home
             </button>
@@ -133,26 +157,27 @@ const Header = ({ onPostPropertyClick }) => {
             >
               <button 
                 onClick={() => navigate("/customer-portal")}
-                className="px-4 h-12 text-white font-semibold text-sm hover:bg-black/20 flex items-center gap-1"
+                className="px-5 h-14 text-white font-semibold text-base hover:bg-black/20 flex items-center gap-1"
               >
-                Customer Portal <ChevronDown className="w-3 h-3" />
+                Customer Portal <ChevronDown className="w-4 h-4" />
               </button>
 
               {activeDropdown === "customer" && (
-                <div className="absolute top-full left-0 bg-[#e5e5e5] shadow-lg z-50 min-w-[140px]">
+                <div className="absolute top-full left-0 bg-white shadow-lg z-50 min-w-[160px] rounded-md overflow-visible">
                   {Object.entries(customerPortalMenu).map(([key, submenu]) => (
                     <div key={key} className="relative group">
                       <button 
                         onClick={() => handleCustomerPortalClick(key)}
-                        className="w-full px-3 py-1.5 text-left capitalize text-xs font-semibold text-black hover:bg-gray-300"
+                        className="w-full px-4 py-3 text-left capitalize text-sm font-semibold text-black hover:bg-gray-100"
                       >
                         {key}
                       </button>
-                      <div className="absolute left-full top-0 hidden group-hover:block bg-[#9a9a9a] shadow-lg min-w-[140px]">
+                      <div className="absolute left-full top-0 hidden group-hover:block bg-white shadow-lg min-w-[140px] rounded-md z-50">
                         {submenu.map((item) => (
                           <button
                             key={item}
-                            className="w-full px-3 py-1.5 text-left text-xs text-black hover:bg-gray-500"
+                            onClick={() => handleCustomerPortalClick(item.toLowerCase())}
+                            className="w-full px-4 py-2.5 text-left text-sm text-black hover:bg-gray-100"
                           >
                             {item}
                           </button>
@@ -172,18 +197,18 @@ const Header = ({ onPostPropertyClick }) => {
             >
               <button
                 onClick={() => navigate("/post-property")}
-                className="px-4 h-12 text-white font-semibold text-sm hover:bg-black/20 flex items-center gap-1"
+                className="px-5 h-14 text-white font-semibold text-base hover:bg-black/20 flex items-center gap-1"
               >
-                Post Your Property <ChevronDown className="w-3 h-3" />
+                Post Your Property <ChevronDown className="w-4 h-4" />
               </button>
 
               {activeDropdown === "post" && (
-                <div className="absolute top-full left-0 bg-[#e5e5e5] shadow-lg z-50 min-w-[200px]">
+                <div className="absolute top-full left-0 bg-white shadow-lg z-50 min-w-[220px] rounded-md">
                   {postPropertyMenu.map((item) => (
                     <button
                       key={item}
                       onClick={() => handlePostSubmenuClick(item)}
-                      className="w-full px-3 py-1.5 text-left text-xs font-semibold text-black hover:bg-gray-300"
+                      className="w-full px-4 py-3 text-left text-sm font-semibold text-black hover:bg-gray-100"
                     >
                       {item}
                     </button>
@@ -198,16 +223,16 @@ const Header = ({ onPostPropertyClick }) => {
               onMouseEnter={() => setActiveDropdown("loan")}
               onMouseLeave={() => setActiveDropdown(null)}
             >
-              <button className="px-4 h-12 text-white font-semibold text-sm hover:bg-black/20 flex items-center gap-1">
-                Find Your Loan <ChevronDown className="w-3 h-3" />
+              <button className="px-5 h-14 text-white font-semibold text-base hover:bg-black/20 flex items-center gap-1">
+                Find Your Loan <ChevronDown className="w-4 h-4" />
               </button>
 
               {activeDropdown === "loan" && (
-                <div className="absolute top-full left-0 bg-[#e5e5e5] shadow-lg z-50 min-w-[160px]">
+                <div className="absolute top-full left-0 bg-white shadow-lg z-50 min-w-[180px] rounded-md">
                   {loanMenu.map((item) => (
                     <button
                       key={item}
-                      className="w-full px-3 py-1.5 text-left text-xs font-semibold text-black hover:bg-gray-300"
+                      className="w-full px-4 py-3 text-left text-sm font-semibold text-black hover:bg-gray-100"
                     >
                       {item}
                     </button>
@@ -222,16 +247,16 @@ const Header = ({ onPostPropertyClick }) => {
               onMouseEnter={() => setActiveDropdown("services")}
               onMouseLeave={() => setActiveDropdown(null)}
             >
-              <button className="px-4 h-12 text-white font-semibold text-sm hover:bg-black/20 flex items-center gap-1">
-                Services <ChevronDown className="w-3 h-3" />
+              <button className="px-5 h-14 text-white font-semibold text-base hover:bg-black/20 flex items-center gap-1">
+                Services <ChevronDown className="w-4 h-4" />
               </button>
 
               {activeDropdown === "services" && (
-                <div className="absolute top-full left-0 bg-[#e5e5e5] shadow-lg z-50 min-w-[140px]">
+                <div className="absolute top-full left-0 bg-white shadow-lg z-50 min-w-[160px] rounded-md">
                   {servicesMenu.map((item) => (
                     <button
                       key={item}
-                      className="w-full px-3 py-1.5 text-left text-xs font-semibold text-black hover:bg-gray-300"
+                      className="w-full px-4 py-3 text-left text-sm font-semibold text-black hover:bg-gray-100"
                     >
                       {item}
                     </button>
@@ -250,30 +275,30 @@ const Header = ({ onPostPropertyClick }) => {
           onClick={toggleMobileMenu}
         >
           <div 
-            className="bg-white w-64 h-full overflow-y-auto" 
+            className="bg-white w-72 h-full overflow-y-auto" 
             style={{ background: 'linear-gradient(180deg, #00695C, #26A69A)' }} 
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center justify-between p-4 border-b border-white border-opacity-20">
-              <h2 className="text-white font-bold text-lg">Menu</h2>
+            <div className="flex items-center justify-between p-5 border-b border-white border-opacity-20">
+              <h2 className="text-white font-bold text-xl">Menu</h2>
               <button onClick={toggleMobileMenu} className="text-white">
-                <X className="w-6 h-6" />
+                <X className="w-7 h-7" />
               </button>
             </div>
             
-            <div className="p-4">
+            <div className="p-5">
               <button 
                 onClick={() => {
                   navigate('/');
                   toggleMobileMenu();
                 }}
-                className="w-full text-left text-white font-semibold py-3 border-b border-white border-opacity-20"
+                className="w-full text-left text-white font-semibold py-4 border-b border-white border-opacity-20 text-lg"
               >
                 Home
               </button>
               
               <details className="border-b border-white border-opacity-20">
-                <summary className="text-white font-semibold py-3 cursor-pointer list-none">
+                <summary className="text-white font-semibold py-4 cursor-pointer list-none text-lg">
                   <div className="flex items-center justify-between">
                     <button
                       onClick={(e) => {
@@ -285,13 +310,13 @@ const Header = ({ onPostPropertyClick }) => {
                     >
                       Customer Portal
                     </button>
-                    <ChevronDown className="w-4 h-4 pointer-events-none" />
+                    <ChevronDown className="w-5 h-5 pointer-events-none" />
                   </div>
                 </summary>
-                <div className="pl-4 pb-2">
+                <div className="pl-5 pb-3">
                   {Object.entries(customerPortalMenu).map(([key, submenu]) => (
-                    <details key={key} className="mb-2">
-                      <summary className="text-white text-sm py-2 capitalize cursor-pointer list-none">
+                    <details key={key} className="mb-3">
+                      <summary className="text-white text-base py-3 capitalize cursor-pointer list-none">
                         <div className="flex items-center justify-between">
                           <button
                             onClick={(e) => {
@@ -302,14 +327,14 @@ const Header = ({ onPostPropertyClick }) => {
                           >
                             {key}
                           </button>
-                          <ChevronDown className="w-3 h-3 pointer-events-none" />
+                          <ChevronDown className="w-4 h-4 pointer-events-none" />
                         </div>
                       </summary>
-                      <div className="pl-4">
+                      <div className="pl-5">
                         {submenu.map((item) => (
                           <button 
                             key={item} 
-                            className="block text-white text-xs py-1.5 w-full text-left hover:bg-white hover:bg-opacity-10"
+                            className="block text-white text-sm py-2.5 w-full text-left hover:bg-white hover:bg-opacity-10"
                           >
                             {item}
                           </button>
@@ -321,7 +346,7 @@ const Header = ({ onPostPropertyClick }) => {
               </details>
               
               <details className="border-b border-white border-opacity-20">
-                <summary className="text-white font-semibold py-3 cursor-pointer list-none">
+                <summary className="text-white font-semibold py-4 cursor-pointer list-none text-lg">
                   <div className="flex items-center justify-between">
                     <button
                       onClick={(e) => {
@@ -333,15 +358,15 @@ const Header = ({ onPostPropertyClick }) => {
                     >
                       Post Your Property
                     </button>
-                    <ChevronDown className="w-4 h-4 pointer-events-none" />
+                    <ChevronDown className="w-5 h-5 pointer-events-none" />
                   </div>
                 </summary>
-                <div className="pl-4 pb-2">
+                <div className="pl-5 pb-3">
                   {postPropertyMenu.map((item) => (
                     <button
                       key={item}
                       onClick={() => handlePostSubmenuClick(item)}
-                      className="block text-white text-sm py-2 w-full text-left hover:bg-white hover:bg-opacity-10"
+                      className="block text-white text-base py-3 w-full text-left hover:bg-white hover:bg-opacity-10"
                     >
                       {item}
                     </button>
@@ -350,17 +375,17 @@ const Header = ({ onPostPropertyClick }) => {
               </details>
 
               <details className="border-b border-white border-opacity-20">
-                <summary className="text-white font-semibold py-3 cursor-pointer list-none">
+                <summary className="text-white font-semibold py-4 cursor-pointer list-none text-lg">
                   <span className="flex items-center justify-between">
                     Find Your Loan
-                    <ChevronDown className="w-4 h-4" />
+                    <ChevronDown className="w-5 h-5" />
                   </span>
                 </summary>
-                <div className="pl-4 pb-2">
+                <div className="pl-5 pb-3">
                   {loanMenu.map((item) => (
                     <button 
                       key={item} 
-                      className="block text-white text-sm py-2 w-full text-left hover:bg-white hover:bg-opacity-10"
+                      className="block text-white text-base py-3 w-full text-left hover:bg-white hover:bg-opacity-10"
                     >
                       {item}
                     </button>
@@ -369,17 +394,17 @@ const Header = ({ onPostPropertyClick }) => {
               </details>
               
               <details className="border-b border-white border-opacity-20">
-                <summary className="text-white font-semibold py-3 cursor-pointer list-none">
+                <summary className="text-white font-semibold py-4 cursor-pointer list-none text-lg">
                   <span className="flex items-center justify-between">
                     Services
-                    <ChevronDown className="w-4 h-4" />
+                    <ChevronDown className="w-5 h-5" />
                   </span>
                 </summary>
-                <div className="pl-4 pb-2">
+                <div className="pl-5 pb-3">
                   {servicesMenu.map((item) => (
                     <button 
                       key={item} 
-                      className="block text-white text-sm py-2 w-full text-left hover:bg-white hover:bg-opacity-10"
+                      className="block text-white text-base py-3 w-full text-left hover:bg-white hover:bg-opacity-10"
                     >
                       {item}
                     </button>
