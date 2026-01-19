@@ -37,7 +37,7 @@ const CustomerPortalPage = () => {
               background: "linear-gradient(135deg, #00695C, #26A69A)",
             }}
           >
-            Rent
+            Individual
           </button>
 
           <button
@@ -47,7 +47,7 @@ const CustomerPortalPage = () => {
               background: "linear-gradient(135deg, #00695C, #26A69A)",
             }}
           >
-            Buy
+           Apartment 
           </button>
 
           <button
@@ -57,7 +57,25 @@ const CustomerPortalPage = () => {
               background: "linear-gradient(135deg, #00695C, #26A69A)",
             }}
           >
-            Lease
+            Commercial
+          </button>
+          <button
+            onClick={() => navigate("/lease")}
+            className="h-16 md:h-20 rounded-xl text-white text-lg md:text-xl font-bold shadow-md hover:shadow-lg hover:scale-105 transition-all"
+            style={{
+              background: "linear-gradient(135deg, #00695C, #26A69A)",
+            }}
+          >
+            Hostel
+          </button>
+          <button
+            onClick={() => navigate("/lease")}
+            className="h-16 md:h-20 rounded-xl text-white text-lg md:text-xl font-bold shadow-md hover:shadow-lg hover:scale-105 transition-all"
+            style={{
+              background: "linear-gradient(135deg, #00695C, #26A69A)",
+            }}
+          >
+            Land & Plots
           </button>
         </div>
       </section>

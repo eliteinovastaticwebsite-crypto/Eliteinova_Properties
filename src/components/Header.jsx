@@ -9,9 +9,11 @@ const Header = ({ onPostPropertyClick }) => {
   const navigate = useNavigate();
 
   const customerPortalMenu = {
-    rent: ["Individual", "Apartment", "Commercial", "Land & Plot", "Hostel"],
-    buy: ["Individual", "Apartment", "Commercial", "Land & Plot", "Hostel"],
-    lease: ["Individual", "Apartment", "Commercial", "Land & Plot", "Hostel"],
+    Individual: ["Rent", "Buy", "Lease"],
+    Apartment: ["Rent", "Buy", "Lease"],
+    Commercial: ["Rent", "Buy", "Lease"],
+    LandAndPlots: ["Rent", "Buy", "Lease"],
+    Hostel: ["Rent", "Buy", "Lease"],
   };
 
   const postPropertyMenu = [
