@@ -88,7 +88,7 @@ const IndividualPage = () => {
         {/* Enhanced Banner Section */}
         <section className="w-full h-[350px] md:h-[450px] relative flex items-center overflow-hidden group">
           {/* Enhanced overlay with gradient */}
-          <div className="absolute inset-0 bg-gradient-to-b from-teal-900/40 via-emerald-900/20 to-teal-900/60 animate-gradient-slow"></div>
+          <div className="absolute inset-0 bg-gradient-to-b animate-gradient-slow"></div>
           
           {/* Animated floating dots */}
           <div className="absolute inset-0 overflow-hidden">
@@ -121,7 +121,7 @@ const IndividualPage = () => {
             </h1>
             
             {/* Enhanced Subtitle */}
-            <p className="text-lg md:text-xl lg:text-2xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed animate-fade-in-up delay-100  bg-teal-900/20 rounded-2xl p-6 border border-teal-300/10">
+            <p className="text-lg md:text-xl lg:text-2xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed ">
               Browse through our verified individual properties with premium amenities
             </p>
 
@@ -229,7 +229,21 @@ const IndividualPage = () => {
                           Lease
                         </div>
                       </button>
-                    </div>
+                      <div className="h-px bg-gradient-to-r from-transparent via-teal-200/50 to-transparent"></div>
+                      <button
+                        onClick={() => {
+                          handleNavigation("/sell");
+                          setActiveButton("Sell");
+                          setOpenDropdown(null);
+                        }}
+                        className="w-full px-5 py-3.5 text-left text-base hover:bg-teal-100/50 transition-all duration-300 text-teal-900 font-medium group"
+                      >
+                        <div className="flex items-center gap-3 group-hover:gap-4 transition-all">
+                          <div className="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-indigo-500 to-teal-500"></div>
+                          Sell
+                        </div>
+                      </button>
+                    </div>   
                   )}
                 </div>
 
